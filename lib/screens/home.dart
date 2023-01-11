@@ -12,7 +12,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final TextEditingController _numberController = TextEditingController();
-  
+
   @override
   void initState() {
     super.initState();
@@ -21,33 +21,50 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
-      navigationBar: const CupertinoNavigationBar(
-        middle: Text('Middle')
-      ),
-      child: buildButton()
-      // child: Center(child: buildButton()),
-    );
+    return Scaffold(
+        appBar: AppBar(title: const Text("Phone Number")), body: buildButton()
+        // child: Center(child: buildButton()),
+        );
   }
 
   Widget buildButton() {
-    final number = '<Your Phone Number>';
+    final number = '+821048294259';
 
-    return CupertinoScrollbar(
-      child: ListView.builder(
-        itemCount: 20,
-        itemBuilder: (context, index) {
-          return CupertinoListTile(
-            title: const Text("Vincent's"),
-            onTap: () async {
-              // ignore: deprecated_member_use
-              launch('tel://$number');
-              await FlutterPhoneDirectCaller.callNumber(number);
-            },
-          );
+    return ListTile(
+      title: Text("Vincent's"),
+      subtitle: Text(number),
+      leading: CircleAvatar(
+        backgroundImage: NetworkImage("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"),
+      ),
+      trailing: TextButton(
+        style: TextButton.styleFrom(
+          padding: EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+          shape: RoundedRectangleBorder(
+            side: BorderSide(color: Colors.blue)
+          )
+        ),
+        child: Text('Call'),
+        onPressed: () async {
+          launch('tel://$number');
+          await FlutterPhoneDirectCaller.callNumber(number);
         },
       ),
     );
+    // return CupertinoScrollbar(
+    //   child: ListView.builder(
+    //     itemCount: 20,
+    //     itemBuilder: (context, index) {
+    //       return CupertinoListTile(
+    //         title: const Text("Vincent's"),
+    //         onTap: () async {
+    //           // ignore: deprecated_member_use
+    //           launch('tel://$number');
+    //           await FlutterPhoneDirectCaller.callNumber(number);
+    //         },
+    //       );
+    //     },
+    //   ),
+    // );
     // return ListTile(
     //   title: Text("Vincent's"),
     //   subtitle: Text(number),
@@ -59,7 +76,6 @@ class _HomeState extends State<Home> {
     //   },
     // );
 
-   
     // return CupertinoListTile(
     //   title: Text("Vincent's"),
     //   onTap: () async {
@@ -78,7 +94,7 @@ class _HomeState extends State<Home> {
     //   onPressed: () async {
     //     FlutterPhoneDirectCaller.callNumber(_numberController.text);
     //     // final uri = Uri.parse('tel:$number');
-        
+
     //     // if (await canLaunchUrl(uri)) {
     //     //   launchUrl(uri);
     //     // }
